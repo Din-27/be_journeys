@@ -4,10 +4,10 @@ const cloudinary = require('../utils/cloudinary')
 exports.addJourney = async (req, res) =>{
     try {
         const result = await cloudinary.uploader.upload(req.file.path, {
-            folder: 'journeys',
-            use_filename: true,
-            unique_filename: false,
-        })
+        folder: 'journeys',
+        use_filename: true,
+        unique_filename: false,
+        });
         let data = req.body
         let add = await journey.create({
             ...data,
@@ -115,13 +115,8 @@ exports.getJourney = async (req, res) => {
 
 exports.updateJourney = async (req, res) => {
     try {
-        const result = await cloudinary.uploader.upload(req.file.path, {
-            folder: 'journeys',
-            use_filename: true,
-            unique_filename: false,
-        })
         let { id } = req.params;
-        await journey.update({title:req.body.title, body:req.body.body, image: result.public_id},{
+        await journey.update({title:req.body.title, body:req.body.body},{
         where: {id},
       })
       let journeys = await journey.findAll({
